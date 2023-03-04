@@ -46,7 +46,6 @@ const TodoPage = () => {
     });
     setInputValue('');
   };
-
   const handleKeyDown = () => {
     if (inputValue.length === 0) {
       return;
@@ -64,7 +63,6 @@ const TodoPage = () => {
     });
     setInputValue('');
   };
-
   const handleToggleDone = (id) => {
     setTodos((prevTodos) => {
       return prevTodos.map((todo) => {
@@ -79,6 +77,38 @@ const TodoPage = () => {
     });
   };
 
+  const handleSave = ({ id, title }) => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            title,
+            isEdit: false,
+          };
+        }
+        return todo;
+      });
+    });
+  };
+
+  const handleChangeMode = ({ id, isEdit }) => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            isEdit,
+          };
+        }
+        return {
+          ...todo,
+          isEdit: false,
+        };
+      });
+    });
+  };
+
   return (
     <div>
       TodoPage
@@ -89,7 +119,12 @@ const TodoPage = () => {
         onAddTodo={handleAddTodo}
         onKeyDown={handleKeyDown}
       />
-      <TodoCollection todos={todos} onToggleDone={handleToggleDone} />
+      <TodoCollection
+        todos={todos}
+        onToggleDone={handleToggleDone}
+        onChangeMode={handleChangeMode}
+        onSave={handleSave}
+      />
       <Footer />
     </div>
   );
