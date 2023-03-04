@@ -76,7 +76,6 @@ const TodoPage = () => {
       });
     });
   };
-
   const handleSave = ({ id, title }) => {
     setTodos((prevTodos) => {
       return prevTodos.map((todo) => {
@@ -91,7 +90,6 @@ const TodoPage = () => {
       });
     });
   };
-
   const handleChangeMode = ({ id, isEdit }) => {
     setTodos((prevTodos) => {
       return prevTodos.map((todo) => {
@@ -106,6 +104,11 @@ const TodoPage = () => {
           isEdit: false,
         };
       });
+    });
+  };
+  const handleDelete = (id) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.id !== id);
     });
   };
 
@@ -124,8 +127,9 @@ const TodoPage = () => {
         onToggleDone={handleToggleDone}
         onChangeMode={handleChangeMode}
         onSave={handleSave}
+        onDelete={handleDelete}
       />
-      <Footer />
+      <Footer todos={todos} />
     </div>
   );
 };
