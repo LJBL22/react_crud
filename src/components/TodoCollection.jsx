@@ -10,7 +10,14 @@ const TodoCollection = ({
   return (
     <div>
       {todos.map((todo) => {
-        return <TodoItem key={todo.id} todo={todo} />;
+        //要把 id 也往上傳
+        return (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onToggleDone={(id) => onToggleDone?.(id)}
+          />
+        );
       })}
     </div>
   );
