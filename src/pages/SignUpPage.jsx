@@ -40,16 +40,10 @@ const SignUpPage = () => {
 
       <AuthInputContainer>
         <AuthInput
-<<<<<<< HEAD
           type="password"
           label="密碼"
           value={password}
           placeholder="請輸入密碼"
-=======
-          label="密碼"
-          placeholder="請輸入密碼"
-          value={password}
->>>>>>> 9c1ee121c23245b757273334fe5bfc942b1a8649
           onChange={(passwordInputValue) => setPassword(passwordInputValue)}
         />
       </AuthInputContainer>
