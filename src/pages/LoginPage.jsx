@@ -7,13 +7,14 @@ import {
 import { ACLogoIcon } from 'assets/images';
 import { AuthInput } from 'components';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { login } from 'api/auth';
 import Swal from 'sweetalert2';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleClick = async () => {
     // 拆開寫增加可讀性以及以利擴展
@@ -38,6 +39,7 @@ const LoginPage = () => {
         timer: 1000,
         position: 'top',
       });
+      navigate('/todos');
       return;
     }
     Swal.fire({
