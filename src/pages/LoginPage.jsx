@@ -48,7 +48,6 @@ const LoginPage = () => {
       position: 'top',
     });
   };
-  // const Swal = require('sweetalert2');
 
   return (
     <AuthContainer>
