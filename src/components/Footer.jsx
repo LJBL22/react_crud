@@ -1,4 +1,6 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import Swal from 'sweetalert2';
 
 const StyledFooter = styled.footer`
   display: flex;
@@ -32,10 +34,24 @@ const StyledButton = styled.button`
 `;
 
 const Footer = ({ todos }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    //navigate 導到 login 頁面
+    //刪除 localStorage 的東西
+    localStorage.removeItem('authToken');
+    Swal.fire({
+      title: '已登出',
+      icon: 'info',
+      showConfirmButton: false,
+      timer: 1000,
+      position: 'top',
+    });
+    navigate('/login');
+  };
   return (
     <StyledFooter>
       <p>剩餘項目數： {todos.length}</p>
-      <StyledButton>登出</StyledButton>
+      <StyledButton onClick={handleClick}>登出</StyledButton>
     </StyledFooter>
   );
 };
