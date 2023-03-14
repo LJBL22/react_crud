@@ -1,6 +1,7 @@
-import { login, register } from 'api/auth';
-import { createContext, useState } from 'react';
+import { checkPermission, login, register } from 'api/auth';
+import { createContext, useEffect, useState } from 'react';
 import * as jwt from 'jsonwebtoken';
+import { useLocation } from 'react-router-dom';
 
 const defaultAuthContext = {
   isAuthenticated: false,
@@ -17,6 +18,30 @@ const AuthContext = createContext(defaultAuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const checkTokenIsValid = async () => {
+      //確認憑證是否存在
+      const authToken = localStorage.getItem('authToken');
+      if (!authToken) {
+        setIsAuthenticated(false);
+        setPayload(null);
+        return;
+      }
+      //如果存在，確認憑證是否有效（可能不一致、也可能過期）
+      const result = await checkPermission(authToken);
+      if (result) {
+        setIsAuthenticated(true);
+        const tempPayload = jwt.decode(authToken);
+        setPayload(tempPayload);
+      } else {
+        setIsAuthenticated(false);
+        setPayload(null);
+      }
+    };
+    checkTokenIsValid();
+    //相依
+  }, [pathname]);
   return (
     <AuthContext.Provider
       value={{
