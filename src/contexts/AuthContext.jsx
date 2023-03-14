@@ -13,6 +13,7 @@ const defaultAuthContext = {
 
 //1. createContext
 const AuthContext = createContext(defaultAuthContext);
+//將 useContext 包裝在函式中 i.e. 在 useAuth 內部使用 useContext hook。useAuth 是一個自定義 hook
 export const useAuth = () => useContext(AuthContext);
 //2. 在父層設定 context.Provider; 設定傳遞的 value，包含多個屬性的物件，每個屬性都代表了 AuthContext 中所需的狀態或方法
 export const AuthProvider = ({ children }) => {
