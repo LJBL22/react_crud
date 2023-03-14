@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
             password: data.password,
             email: data.email,
           });
-          //將經過 jwtwebtoken 解析的 payload，儲存進 state
+          //將經過 jwtWebToken 解析的 payload，儲存進 state
           const tempPayload = jwt.decode(authToken);
           if (tempPayload) {
             setPayload(tempPayload);
