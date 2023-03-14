@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from 'contexts/AuthContext';
 import styled from 'styled-components';
 import Swal from 'sweetalert2';
 
@@ -34,11 +34,9 @@ const StyledButton = styled.button`
 `;
 
 const Footer = ({ todos }) => {
-  const navigate = useNavigate();
+  const { logout } = useAuth();
   const handleClick = () => {
-    //navigate 導到 login 頁面
-    //刪除 localStorage 的東西
-    localStorage.removeItem('authToken');
+    logout();
     Swal.fire({
       title: '已登出',
       icon: 'info',
@@ -46,7 +44,6 @@ const Footer = ({ todos }) => {
       timer: 1000,
       position: 'top',
     });
-    navigate('/login');
   };
   return (
     <StyledFooter>
