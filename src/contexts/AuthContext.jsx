@@ -1,5 +1,5 @@
 import { checkPermission, login, register } from 'api/auth';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import * as jwt from 'jsonwebtoken';
 import { useLocation } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ const defaultAuthContext = {
 
 //1. createContext
 const AuthContext = createContext(defaultAuthContext);
-
+export const useAuth = () => useContext(AuthContext);
 //2. 在父層設定 context.Provider; 設定傳遞的 value，包含多個屬性的物件，每個屬性都代表了 AuthContext 中所需的狀態或方法
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
